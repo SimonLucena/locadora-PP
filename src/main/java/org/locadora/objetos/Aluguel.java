@@ -3,16 +3,16 @@ package org.locadora.objetos;
 import org.locadora.interfaces.AlugavelIntf;
 
 public class Aluguel {
-    private final AlugavelIntf alugavel;
+    private final AlugavelIntf item;
     private final int diasAlugado;
 
     public Aluguel(AlugavelIntf alugavel, int diasAlugado) {
-        this.alugavel = alugavel;
+        this.item = alugavel;
         this.diasAlugado = diasAlugado;
     }
 
-    public AlugavelIntf getDVD() {
-        return alugavel;
+    public AlugavelIntf getAluguel() {
+        return item;
     }
 
     public int getDiasAlugado() {
@@ -20,10 +20,10 @@ public class Aluguel {
     }
 
     public double getValorAluguel() {
-        return alugavel.getValorDvd(diasAlugado);
+        return item.getValorAluguel(diasAlugado);
     }
 
     public int calcularPontosDeAluguel() {
-        return alugavel.getPontosDeAlugadorFrequente(diasAlugado);
+        return item.getPontosDeAlugadorFrequente(diasAlugado);
     }
 }

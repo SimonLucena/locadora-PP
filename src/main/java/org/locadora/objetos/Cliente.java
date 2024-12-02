@@ -23,6 +23,9 @@ public class Cliente {
     public double getValorTotal() {
         double valorTotal = 0.0;
         for (Aluguel aluguel : dvdsAlugados) {
+            if(aluguel.getAluguel().getClassificacao().isNull()) {
+                continue;
+            }
             valorTotal += aluguel.getValorAluguel();
         }
         return valorTotal;
@@ -31,6 +34,9 @@ public class Cliente {
     public int getPontosTotaisDeAlugadorFrequente() {
         int pontosTotais = 0;
         for (Aluguel aluguel : dvdsAlugados) {
+            if(aluguel.getAluguel().getClassificacao().isNull()) {
+                continue;
+            }
             pontosTotais += aluguel.calcularPontosDeAluguel();
         }
         return pontosTotais;
@@ -43,8 +49,13 @@ public class Cliente {
 
         while(alugueis.hasNext()) {
             Aluguel cada = alugueis.next();
-            // mostra valores para este aluguel
-            resultado += "\t" + cada.getDVD().getTitulo() + "\t R$ " + cada.getValorAluguel() + fimDeLinha;
+
+            if (cada.getAluguel().getClassificacao().isNull()){
+                continue;
+            }else {
+                // mostra valores para este aluguel
+                resultado += "\t" + cada.getAluguel().getTitulo() + "\t R$ " + cada.getValorAluguel() + fimDeLinha;
+            }
         } // while
 
         // adiciona rodapé
@@ -61,7 +72,10 @@ public class Cliente {
                 "</EM></H1><P>" + fimDeLinha;
         while(alugueis.hasNext()) {
             Aluguel cada = alugueis.next();
-            resultado += cada.getDVD().getTitulo() + ": R$ " + cada.getValorAluguel() + "<BR>"+ fimDeLinha;
+            if(cada.getAluguel().getClassificacao().isNull()) {
+                continue;
+            }
+            resultado += cada.getAluguel().getTitulo() + ": R$ " + cada.getValorAluguel() + "<BR>"+ fimDeLinha;
         } // while
         // adiciona rodapé
         resultado += "<P>Valor total pago: <EM>R$ " + getValorTotal() +
